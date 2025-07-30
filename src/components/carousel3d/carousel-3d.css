@@ -1,0 +1,408 @@
+:root {
+  --total: 10;
+  --radius: clamp(150px, 40vw, 400px);
+  --panel-size: clamp(120px, 20vw, 240px);
+  --duration: 20s;
+}
+
+.carousel-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+  border-bottom: 2px solid #ffffff;
+}
+
+.carousel-nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  margin-bottom: 2rem;
+}
+
+.nav-left, .nav-right {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-left{
+  padding-left: 1rem;
+}
+.nav-right{
+  padding-right: 1rem;
+}
+
+.nav-btn {
+  background: transparent;
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  padding: 0.8rem 1.5rem;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.nav-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ff0000;
+  -webkit-mask: url("https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/urban-sprite.png");
+  mask: url("https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/urban-sprite.png");
+  -webkit-mask-size: 3000% 100%;
+  mask-size: 3000% 100%;
+  -webkit-animation: mask-reverse 0.7s steps(29) forwards;
+  animation: mask-reverse 0.7s steps(29) forwards;
+  z-index: -1;
+}
+
+.nav-btn:hover::before {
+  -webkit-animation: mask-forward 0.7s steps(29) forwards;
+  animation: mask-forward 0.7s steps(29) forwards;
+}
+
+.nav-btn:hover {
+  color: #ffffff;
+}
+
+/* Copyright Link Split Effect */
+.copyright-link {
+  position: relative;
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  line-height: 1em;
+  margin: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.link--top {
+  position: absolute;
+  color: #ffffff;
+  top: 0.8rem;
+  left: 1.5rem;
+  display: inline-block;
+  clip-path: polygon(0% 66%, 0% 0%, 100% 0%, 100% 40%);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.25s, color 0.5s ease 0.22s;
+}
+
+.link--top:after {
+  content: "";
+  position: absolute;
+  top: 36%;
+  left: 0;
+  width: 100%;
+  height: 4%;
+  background: #ff0000;
+  transform: rotateZ(-2.2deg) scaleX(0%);
+  transform-origin: right top;
+  transition: transform 0.2s ease 0.22s;
+}
+
+.link--bottom {
+  display: inline-block;
+  clip-path: polygon(0% 65%, 100% 40%, 100% 110%, 0% 110%);
+  color: #ffffff;
+  transition: color 0.5s ease 0.22s, background-position 0.2s ease 0.22s;
+  text-decoration: none;
+}
+
+.copyright-link:hover .link--top {
+  color: #ff0000;
+  transform: translateY(-0.5em) rotateZ(-3deg);
+  transition: transform 0.5s cubic-bezier(.12,.8,.57,1.00) 0.42s, color 0.5s ease 0.22s;
+}
+
+.copyright-link:hover .link--bottom {
+  color: #ff0000;
+  background-position: 100% bottom;
+  transition: color 0.5s ease 0.2s, background-position 0.2s ease;
+}
+
+.copyright-link:hover .link--top:after {
+  top: 62%;
+  transform-origin: left top;
+  transform: rotateZ(-2.2deg) scaleX(100%);
+}
+
+.copyright-link:hover .link--bottom:after {
+  top: 65%;
+  transform-origin: left top;
+  transform: rotateZ(-2.1deg) scaleX(100%);
+}
+
+.carousel-wrapper {
+  perspective: 2000px;
+  width: 100%;
+  height: 30vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.carousel {
+  --angle: calc(360deg / var(--total));
+  width: var(--panel-size);
+  height: var(--panel-size);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-style: preserve-3d;
+  transform: translate(-50%, -50%);
+  animation: spin var(--duration) linear infinite;
+}
+
+.carousel::before {
+  content: "";
+  position: absolute;
+  top: -20vh;
+  left: 0;
+  width: 100vw;
+  height: 150vh;
+  z-index: -2;
+  transform: translateZ(-500px) scale(1.3);
+  filter: blur(10px) brightness(0.3);
+}
+
+.carousel img {
+  position: absolute;
+  width: var(--panel-size);
+  height: var(--panel-size);
+  object-fit: cover;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  transition:
+    transform 0.5s ease,
+    filter 0.5s ease;
+  backface-visibility: hidden;
+  transform: rotateY(calc(var(--angle) * var(--n))) translateZ(var(--radius));
+}
+
+.carousel img::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  width: 100%;
+  height: 20px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), transparent);
+  filter: blur(2px);
+  z-index: -1;
+}
+
+@keyframes spin {
+  from {
+    transform: translate(-50%, -50%) rotateY(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotateY(-360deg);
+  }
+}
+
+.carousel-text {
+  width: 100%;
+  text-align: center;
+  margin-top: 3rem;
+  text-transform: uppercase;
+  color: rgba(255, 0, 0, 0.9);
+  overflow: hidden;
+}
+
+.carousel-text .animated-sentence {
+  font-family: inherit;
+  max-width: 40ch;
+  text-align: center;
+  transform: scale(0.94);
+  animation: scale 3s forwards cubic-bezier(0.5, 1, 0.89, 1);
+  font-size: 26px;
+  line-height: 1.4;
+  margin: 1rem auto;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+}
+
+.carousel-text .animated-sentence.sentence-2 {
+  animation-delay: 1s;
+}
+
+@keyframes scale {
+  100% {
+    transform: scale(1);
+  }
+}
+
+.carousel-text span {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(4px);
+  margin-right: 0.3em;
+  animation: 
+    fade-in-out 6s infinite cubic-bezier(0.11, 0, 0.5, 0);
+  animation-delay: calc(
+    var(--start-delay, 0s) + 
+    (var(--word-index) * 0.1s)
+  );
+}
+
+@keyframes fade-in-out {
+  0%, 15% {
+    opacity: 0;
+    filter: blur(4px);
+  }
+  30%, 70% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  85%, 100% {
+    opacity: 0;
+    filter: blur(4px);
+  }
+}
+
+/* Button mask animation keyframes */
+@keyframes mask-forward {
+  from {
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+  }
+  to {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+  }
+}
+
+@keyframes mask-reverse {
+  from {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+  }
+  to {
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+  }
+}
+
+/* Mobile and Tablet Responsive Styles */
+@media (max-width: 1024px) {
+  .nav-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 13px;
+  }
+  
+  .nav-btn::after {
+    height: 2px;
+  }
+  
+  .carousel-nav {
+    padding: 0 1rem;
+  }
+  
+  .carousel-text p {
+    font-size: 22px;
+  }
+  
+  .carousel-text .animated-sentence {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-container {
+    padding-top: 1rem;
+  }
+  
+  .carousel-nav {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .nav-left, .nav-right {
+    gap: 1rem;
+    justify-content: center;
+  }
+  
+  .nav-btn {
+    padding: 0.5rem 1rem;
+    font-size: 12px;
+  }
+  
+  .nav-btn::after {
+    height: 1.5px;
+  }
+  
+  .carousel-wrapper {
+    height: 25vh;
+  }
+  
+  .carousel-text {
+    width: 90%;
+    margin-top: 1rem;
+  }
+  
+  .carousel-text p {
+    font-size: 18px;
+    line-height: 1.3;
+  }
+  
+  .carousel-text .animated-sentence {
+    font-size: 18px;
+    line-height: 1.3;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-right {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .nav-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 11px;
+    flex: 1;
+    min-width: 80px;
+  }
+  
+  .nav-btn::after {
+    height: 1px;
+  }
+  
+  .carousel-wrapper {
+    height: 20vh;
+  }
+  
+  .carousel-text p {
+    font-size: 16px;
+    margin: 0.3rem 0;
+  }
+  
+  .carousel-text .animated-sentence {
+    font-size: 16px;
+    margin: 0.3rem 0;
+  }
+}

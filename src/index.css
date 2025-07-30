@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+@font-face {
+  font-family: 'Horizon';
+  src: url('/font/horizon.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color: #ffffff;
+  background-color: #000000;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #ffffff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #ff0000;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+.main-content {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  animation: slideUpFromBottom 2s ease-out forwards;
+}
+
+.content-container {
+  width: 60%;
+  max-width: 1200px;
+  min-height: 100vh;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(5px);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 20px 40px rgba(255, 255, 255, 0.3);
+  border: 2px solid #ff0000;
+}
+
+@keyframes slideUpFromBottom {
+  0% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+  color: #ffffff;
+}
+
+.section-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 3rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Mobile and Tablet Responsive Styles */
+@media (max-width: 1024px) {
+  .content-container {
+    width: 80%;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .content-container {
+    width: 95%;
+    padding: 1rem;
+    margin: 0 auto;
+    border-radius: 15px;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    letter-spacing: 1px;
+  }
+  
+  h1 {
+    font-size: 2.5em;
+  }
+}
+
+@media (max-width: 480px) {
+  .content-container {
+    width: 98%;
+    padding: 0.75rem;
+    border-radius: 10px;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  h1 {
+    font-size: 2em;
+  }
+}
+
+/* Page Transition Animation Styles */
+.animate_content {
+  animation: animate 3s ease;
+}
+
+@keyframes animate {
+  10% {
+    transform: translate(-50%, -50%) scale(1, 0.002);
+  }
+  35% {
+    transform: translate(-50%, -50%) scale(0.2, 0.002);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(0.2, 0.002);
+    opacity: 0;
+  }
+  85% {
+    transform: translate(-50%, -50%) scale(1, 0.002);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1, 1);
+  }
+}
+
+.fadeIn {
+  z-index: 10;
+}
