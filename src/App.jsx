@@ -25,14 +25,6 @@ function App() {
     setIsPopupOpen(false);
   };
 
-  // Reset intro on page refresh/reload
-  React.useEffect(() => {
-    // Only reset if not already in progress
-    if (introComplete) {
-      setIntroComplete(false);
-      setKey(prev => prev + 1);
-    }
-  }, []);
 
   return (
     <div className="App">
